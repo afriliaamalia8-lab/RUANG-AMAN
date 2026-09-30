@@ -1,0 +1,476 @@
+/* --- CSS VARIABLES (PALET WARNA) --- */
+:root {
+    --bg-color: #F5F7FA;
+    --primary-accent: #7BA7D9;
+    --secondary-accent: #A8D5BA;
+    --text-color: #2E3A59;
+    --emergency-color: #E07A7A;
+    --white: #FFFFFF;
+    --shadow-soft: 0 4px 15px rgba(46, 58, 89, 0.05);
+    --radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- CUSTOM BACKGROUND WITH OVERLAY FOR READABILITY --- */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-color);
+    line-height: 1.6;
+    padding-bottom: 90px;
+    position: relative;
+    transition: background-image 0.5s ease-in-out;
+}
+
+/* Translucent overlay so content stays readable over custom user photos */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(245, 247, 250, 0.88);
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- NAVBAR & PROFIL --- */
+.navbar {
+    background-color: var(--white);
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+/* USER PROFILE WIDGET & DUTA BADGE */
+.user-profile-widget {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #EBF3FA;
+    padding: 6px 12px;
+    border-radius: 30px;
+    border: 1px solid var(--primary-accent);
+}
+
+.btn-icon {
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--white);
+    padding: 4px 8px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.profile-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.username {
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.ambassador-tag {
+    font-size: 0.65rem;
+    color: #2D6A4F;
+    background: #D8F3DC;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+
+.nav-item:hover, .nav-item.active {
+    background-color: var(--bg-color);
+    color: var(--primary-accent);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+/* --- SPA ROUTING PAGES --- */
+.page {
+    display: none;
+    padding: 30px 0;
+    animation: fadeIn 0.4s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: var(--primary-accent);
+    color: var(--white);
+    border-radius: var(--radius);
+    margin-bottom: 25px;
+}
+
+.hero-title {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    opacity: 0.95;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* --- BUTTONS --- */
+.btn {
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background-color: var(--white);
+    color: var(--text-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--bg-color);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--white);
+    color: var(--white);
+}
+
+.btn-outline:hover {
+    background-color: var(--white);
+    color: var(--text-color);
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: var(--primary-accent);
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* --- MOOD TRACKER INTERAKTIF --- */
+.mood-widget {
+    text-align: center;
+    border: 2px dashed var(--primary-accent);
+    background-color: #FAFCFF;
+    margin-bottom: 25px;
+}
+
+.mood-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.mood-buttons button {
+    background: var(--white);
+    border: 1px solid var(--primary-accent);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.mood-buttons button:hover {
+    background: var(--primary-accent);
+    color: var(--white);
+    transform: scale(1.05);
+}
+
+.mood-response-box {
+    margin-top: 15px;
+    padding: 12px;
+    background: #E8F5E9;
+    border-radius: 8px;
+    color: #1B5E20;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+/* --- CARDS & GRID --- */
+.card {
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 20px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.feature-card {
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid transparent;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-accent);
+}
+
+.feature-card h3 {
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+/* --- FORMS --- */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+textarea, input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    background-color: var(--bg-color);
+}
+
+textarea:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-group input {
+    width: auto;
+}
+
+.warning-box {
+    background-color: #FFF5F5;
+    border-left: 4px solid var(--emergency-color);
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 20px;
+    font-size: 0.95rem;
+}
+
+.success-card {
+    background-color: #EBF8FF;
+    border: 1px solid var(--primary-accent);
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- WALL & QUOTES --- */
+.quote-card {
+    border-left: 5px solid var(--primary-accent);
+}
+
+.quote-card.green-border {
+    border-left-color: var(--secondary-accent);
+}
+
+.quote-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+.quote-author {
+    font-size: 0.9rem;
+    color: #718096;
+    display: block;
+    text-align: right;
+}
+
+/* --- HELP & GUIDELINES --- */
+.help-list, .guideline-list {
+    padding-left: 20px;
+}
+
+.help-list li, .guideline-list li {
+    margin-bottom: 12px;
+}
+
+.margin-top {
+    margin-top: 20px;
+}
+
+.subtitle {
+    margin-bottom: 25px;
+    color: #64748B;
+}
+
+/* --- STICKY EMERGENCY BANNER --- */
+.emergency-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--emergency-color);
+    color: var(--white);
+    padding: 12px 0;
+    z-index: 1000;
+}
+
+.emergency-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.btn-emergency {
+    background-color: var(--white);
+    color: var(--text-color);
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    border-radius: 20px;
+}
+
+.btn-emergency:hover {
+    background-color: var(--bg-color);
+}
+
+/* --- RESPONSIVE MOBILE DESIGN --- */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-wrap: wrap;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        padding: 20px;
+        box-shadow: var(--shadow-soft);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .emergency-content {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+}
