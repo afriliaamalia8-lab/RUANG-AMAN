@@ -1,209 +1,84 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ruang Aman — Tempat Bercerita & Edukasi Kesehatan Mental Remaja</title>
-  <meta name="description" content="Ruang aman anonim untuk remaja Indonesia. Tulis perasaanmu, baca artikel psikoedukasi, dan temukan bantuan tanpa penghakiman.">
-  
-  <!-- Font Google: Poppins & Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ruang Aman · Pojok Baca: Materi Psikoedukasi untuk Remaja Indonesia. Anonim, Gratis, dan Menenangkan.">
+    <title>Ruang Aman · Pojok Baca DKM</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- JavaScript Script -->
+    <script src="js/script.js" defer></script>
 </head>
 <body>
 
-  <!-- Banner Darurat Krisis -->
-  <aside class="crisis-banner" role="alert">
-    <span>⚠️ Jika kamu dalam bahaya atau butuh bantuan darurat, hubungi <strong>119 ext 8</strong> (24 Jam Gratis).</span>
-    <a href="#bantuan" class="btn-link">Lihat Bantuan →</a>
-  </aside>
-
-  <!-- Navigation Bar -->
-  <header class="site-header">
-    <nav class="nav-container">
-      <a href="#beranda" class="brand-logo">
-        <span class="logo-icon">🌸</span>
-        <span class="logo-text">Ruang Aman</span>
-      </a>
-      
-      <ul class="nav-links">
-        <li><a href="#beranda" class="nav-link active">Beranda</a></li>
-        <li><a href="#tulis" class="nav-link">Tulis</a></li>
-        <li><a href="#dinding" class="nav-link">Dinding</a></li>
-        <li><a href="#baca" class="nav-link">Pojok Baca</a></li>
-        <li><a href="#duta" class="nav-link">Duta</a></li>
-        <li><a href="#bantuan" class="btn-emergency">🆘 Bantuan</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <!-- HERO SECTION -->
-    <section id="beranda" class="hero-section">
-      <div class="hero-card glass-panel">
-        <div class="ambassador-badge-mini">
-          <span class="badge-dot"></span> Bersama Duta Kesehatan Mental Indonesia
-        </div>
-        <h1 class="hero-title">Tulis saja.<br><span class="highlight-text">Kamu tidak sendiri.</span></h1>
-        <p class="hero-subtitle">Ruang tulis anonim, aman, dan materi psikoedukasi ramah untuk seluruh remaja Indonesia. Tanpa akun, tanpa biaya, tanpa penghakiman.</p>
-        
-        <div class="hero-cta-group">
-          <a href="#tulis" class="btn-primary">✍️ Mulai Menulis Anonim</a>
-          <a href="#baca" class="btn-secondary">📖 Buka Pojok Baca</a>
-        </div>
-        
-        <p class="trust-note">🔒 Bebas dari lacak nama, foto, atau akun sosial media.</p>
-      </div>
-    </section>
-
-    <!-- FORM TULIS PERASAAN -->
-    <section id="tulis" class="section-container">
-      <div class="section-header">
-        <h2>Tulis Perasaanmu 🌸</h2>
-        <p>Luapkan apa yang ada di kepalamu. Ceritamu aman di sini.</p>
-      </div>
-
-      <div class="write-card glass-panel">
-        <!-- Prompt Helper Chips -->
-        <div class="prompt-chips">
-          <span class="chip-label">Bantuan mulai:</span>
-          <button type="button" class="chip-btn" onclick="insertPrompt('Hari ini aku merasa...')">"Hari ini aku merasa..."</button>
-          <button type="button" class="chip-btn" onclick="insertPrompt('Yang paling berat sekarang adalah...')">"Yang paling berat sekarang..."</button>
-          <button type="button" class="chip-btn" onclick="insertPrompt('Aku ingin bilang ke seseorang bahwa...')">"Aku ingin bilang..."</button>
-        </div>
-
-        <form id="writeForm" onsubmit="handleFormSubmit(event)">
-          <div class="form-group">
-            <textarea id="storyContent" placeholder="Mulai dari mana saja. Tidak perlu rapi, tidak perlu sempurna..." maxlength="2000" required oninput="updateCharCount()"></textarea>
-            <div class="textarea-footer">
-              <span id="charCounter">0 / 2000 karakter</span>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="input-group">
-              <label for="authorName">Nama Samaran / Panggilan (Opsional)</label>
-              <input type="text" id="authorName" placeholder="misal: Awan Cemas, Remaja Jakarta">
-            </div>
-
-            <div class="checkbox-group">
-              <input type="checkbox" id="isAnonymous" checked>
-              <label for="isAnonymous">Sembunyikan sebagai Anonim Sepenuhnya</label>
-            </div>
-          </div>
-
-          <button type="submit" class="btn-submit" id="submitBtn">Kirim Tulisan Secara Aman 🕊️</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- DINDING TULISAN -->
-    <section id="dinding" class="section-container">
-      <div class="section-header">
-        <h2>Dinding Suara Remaja 💬</h2>
-        <p>Cerita dari teman-teman yang mungkin merasakan hal sama seperti kamu.</p>
-      </div>
-
-      <div class="wall-grid" id="wallGrid">
-        <!-- Kartu Tulisan Dimuat Lewat JS -->
-      </div>
-    </section>
-
-    <!-- POJOK BACA (ARTIKEL PSIKOEDUKASI) -->
-    <section id="baca" class="section-container">
-      <div class="section-header">
-        <h2>Pojok Baca Psikoedukasi 📖</h2>
-        <p>Materi singkat 3–5 menit yang disusun hangat untuk menemanimu.</p>
-      </div>
-
-      <!-- Filter Kategori Artikel -->
-      <div class="category-filter-group">
-        <button class="filter-chip active" onclick="filterArticles('semua', this)">Semua Artikel</button>
-        <button class="filter-chip" onclick="filterArticles('Stres & Tekanan', this)">Stres & Tekanan</button>
-        <button class="filter-chip" onclick="filterArticles('Kecemasan', this)">Kecemasan</button>
-        <button class="filter-chip" onclick="filterArticles('Relasi & Sosial', this)">Relasi & Sosial</button>
-        <button class="filter-chip" onclick="filterArticles('Diri & Harga Diri', this)">Diri & Harga Diri</button>
-      </div>
-
-      <div class="articles-grid" id="articlesGrid">
-        <!-- 6 Artikel Lengkap Dimuat Otomatis Lewat script.js -->
-      </div>
-    </section>
-
-    <!-- PROFIL DUTA KESEHATAN MENTAL -->
-    <section id="duta" class="section-container">
-      <div class="duta-card glass-panel">
-        <div class="duta-avatar-wrapper">
-          <div class="duta-logo-frame">
-            <img src="1000255469.png.jpg" alt="Logo Duta Kesehatan Mental" class="duta-logo-img">
-          </div>
-        </div>
-        <div class="duta-info">
-          <span class="duta-tag">Program Resmi & Kolaborasi</span>
-          <h3>Duta Kesehatan Mental Indonesia</h3>
-          <p class="duta-quote">"Meminta bantuan bukan tanda kamu lemah. Itu adalah langkah paling berani bahwa kamu memilih untuk terus bertahan dan bangkit."</p>
-          <p class="duta-desc">Hadir untuk memastikan setiap remaja Indonesia mendapatkan akses informasi kesehatan mental yang ramah, tanpa stigma, dan terhubung ke jalur rujukan tepercaya.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- PUSAT BANTUAN -->
-    <section id="bantuan" class="section-container">
-      <div class="section-header">
-        <h2>Pusat Bantuan Layanan Darurat 🆘</h2>
-        <p>Kamu tidak sendirian. Ada tenaga profesional dan saluran gratis siap mendengarkan.</p>
-      </div>
-
-      <div class="help-cards-grid">
-        <div class="help-card glass-panel highlight-border">
-          <div class="help-icon">📞</div>
-          <h3>Layanan Kesehatan Jiwa Kemenkes</h3>
-          <p class="help-number">119 (Tekan 8)</p>
-          <p class="help-desc">Layanan konseling krisis 24 jam, bebas pulsa & profesional.</p>
-          <a href="tel:119" class="btn-help-action">Hubungi Sekarang</a>
-        </div>
-
-        <div class="help-card glass-panel">
-          <div class="help-icon">🚨</div>
-          <h3>Panggilan Darurat Nasional</h3>
-          <p class="help-number">112</p>
-          <p class="help-desc">Untuk situasi darurat keselamatan fisik atau bantuan krisis medis mendesak.</p>
-          <a href="tel:112" class="btn-help-action secondary">Hubungi 112</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- MODAL BACA ARTIKEL LENGKAP -->
-  <div id="articleModal" class="modal-backdrop" aria-hidden="true">
-    <div class="modal-container glass-panel">
-      <button class="modal-close" onclick="closeArticleModal()" aria-label="Tutup Modal">&times;</button>
-      <div id="modalArticleBody" class="modal-content">
-        <!-- Isi Artikel Lengkap Dimuat Lewat JS -->
-      </div>
+    <!-- Ambient Floating Bubbles Background -->
+    <div class="ambient-bg" aria-hidden="true">
+        <div class="bubble-decor bubble-1"></div>
+        <div class="bubble-decor bubble-2"></div>
+        <div class="bubble-decor bubble-3"></div>
     </div>
-  </div>
 
-  <!-- MODAL DETEKSI KRISIS / RENTAN -->
-  <div id="crisisModal" class="modal-backdrop" aria-hidden="true">
-    <div class="modal-container glass-panel crisis-theme">
-      <h3>Kami Peduli Padamu 🌸</h3>
-      <p>Terima kasih sudah berani menuliskan perasaanmu. Kami membaca bahwa kamu sedang melewati situasi yang sangat berat.</p>
-      <p>Tolong diingat: <strong>Perasaanmu valid, dan kamu tidak harus menanggungnya sendirian.</strong></p>
-      <div class="crisis-modal-actions">
-        <a href="tel:119" class="btn-emergency-modal">📞 Hubungi Layanan 119 ext 8 (Gratis)</a>
-        <button onclick="closeCrisisModal()" class="btn-secondary">Lanjutkan Simpan Tulisan</button>
-      </div>
+    <div class="app-container">
+        
+        <!-- Emergency Banner -->
+        <div class="emergency-banner" role="alert">
+            <span>⚠️ Butuh teman bicara cepat? Hubungi hotline gratis:</span>
+            <a href="tel:119">119 ext 8 (24 Jam)</a>
+        </div>
+
+        <!-- Main Glassmorphism Card Container -->
+        <main class="glass-bubble-card">
+            
+            <!-- Profile / Brand Header Section with DKM Logo -->
+            <header class="profile-header">
+                <div class="avatar-badge">
+                    <img src="1000255469.png.jpg" alt="Logo Duta Kesehatan Mental (DKM)" class="logo-img">
+                </div>
+                <h1>POJOK BACA DKM</h1>
+                <p class="subtitle">Ruang Aman · Materi Psikoedukasi Duta Kesehatan Mental</p>
+            </header>
+
+            <!-- Navigation / Category Filters -->
+            <nav class="filter-nav" aria-label="Kategori Artikel">
+                <button class="pill-btn active" data-category="all">✨ Semua</button>
+                <button class="pill-btn" data-category="Stres & Tekanan">🧠 Stres</button>
+                <button class="pill-btn" data-category="Kecemasan">🌧️ Kecemasan</button>
+                <button class="pill-btn" data-category="Relasi & Sosial">🤝 Relasi</button>
+                <button class="pill-btn" data-category="Diri & Harga Diri">🌱 Self-Love</button>
+            </nav>
+
+            <!-- Article Items Grid Container -->
+            <section class="article-grid" id="articleList">
+                <!-- Injected dynamically via JS -->
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Duta Kesehatan Mental (DKM) · Non-profit Digital Public Good · 2026</p>
+            <p style="margin-top: 4px;">Tanpa Akun. Anonim. Gratis.</p>
+        </footer>
+
     </div>
-  </div>
 
-  <footer class="site-footer">
-    <p>© 2026 Ruang Aman — Dipublikasikan sebagai Digital Public Good untuk Remaja Indonesia.</p>
-  </footer>
+    <!-- Reading Modal Overlay -->
+    <div class="modal-overlay" id="readerModal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-bubble-content">
+            <button class="close-btn" id="closeModalBtn" aria-label="Tutup Artikel">&times;</button>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamic Article Details via JS -->
+            </div>
+        </div>
+    </div>
 
-  <script src="script.js"></script>
 </body>
 </html>
