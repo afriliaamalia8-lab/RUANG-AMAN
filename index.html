@@ -17,15 +17,14 @@
     <header class="navbar">
         <div class="container nav-container">
             <a href="#home" class="logo" onclick="navigateTo('home')">
-                <img src="1000255469.png.jpg" alt="Logo DKM" class="nav-logo-img">
-                <span>RuangTulis DKM</span>
+                <div class="brand-text">
+                    <span class="brand-title">Ruang Aman</span>
+                    <span class="brand-subtitle">Berkolaborasi dengan Duta Kesehatan Mental</span>
+                </div>
             </a>
             
             <!-- WIDGET PROFIL & BADGE DKM -->
             <div class="user-profile-widget">
-                <label for="bg-upload" class="btn-icon" title="Ganti Latar Foto">🖼️ Latar</label>
-                <input type="file" id="bg-upload" accept="image/*" style="display:none;">
-                
                 <div class="profile-badge">
                     <img src="1000255469.png.jpg" alt="Logo DKM" class="avatar-img">
                     <div class="badge-info">
@@ -34,6 +33,19 @@
                     </div>
                 </div>
             </div>
+
+            <button class="menu-toggle" id="mobile-menu" aria-label="Buka Menu">☰</button>
+            <nav class="nav-links" id="nav-links">
+                <a href="#home" class="nav-item active" data-page="home" onclick="navigateTo('home')">Beranda</a>
+                <a href="#tulis" class="nav-item" data-page="tulis" onclick="navigateTo('tulis')">Tulis Perasaan</a>
+                <a href="#dinding" class="nav-item" data-page="dinding" onclick="navigateTo('dinding')">Dinding Tulisan</a>
+                <a href="#baca" class="nav-item" data-page="baca" onclick="navigateTo('baca')">Pojok Baca</a>
+                <a href="#bantuan" class="nav-item" data-page="bantuan" onclick="navigateTo('bantuan')">Pusat Bantuan</a>
+                <a href="#harapan" class="nav-item" data-page="harapan" onclick="navigateTo('harapan')">Kotak Harapan</a>
+                <a href="#panduan" class="nav-item" data-page="panduan" onclick="navigateTo('panduan')">Panduan Aman</a>
+            </nav>
+        </div>
+    </header>
 
             <button class="menu-toggle" id="mobile-menu" aria-label="Buka Menu">☰</button>
             <nav class="nav-links" id="nav-links">
