@@ -40,7 +40,7 @@ body {
   font-family: var(--font-body);
   color: var(--text-main);
   line-height: 1.6;
-  background: url('1000255441.png') no-repeat center center fixed;
+  background: url('1000255441.png.jpg') no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
 }
