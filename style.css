@@ -1,4 +1,9 @@
-/* --- CSS VARIABLES --- */
+/* ==========================================================================
+   RUANG AMAN — FULL STYLESHEET (style.css)
+   Berkolaborasi dengan Duta Kesehatan Mental
+   ========================================================================== */
+
+/* --- CSS VARIABLES (PALET WARNA & DESAIN) --- */
 :root {
     --bg-color: #F5F7FA;
     --primary-accent: #4A7BB0;
@@ -17,7 +22,7 @@
     padding: 0;
 }
 
-/* CUSTOM BACKGROUND DENGAN 1000255441.png.jpg */
+/* --- BODY & BACKGROUND (Menggunakan 1000255441.png.jpg) --- */
 body {
     font-family: 'Inter', sans-serif;
     background-image: url('1000255441.png.jpg');
@@ -31,7 +36,7 @@ body {
     transition: background-image 0.5s ease-in-out;
 }
 
-/* Translucent Overlay agar Konten Mudah Dibaca */
+/* Translucent Overlay agar teks tetap jelas terbaca */
 body::before {
     content: "";
     position: fixed;
@@ -49,7 +54,7 @@ body::before {
     padding: 0 20px;
 }
 
-/* --- NAVBAR & PROFIL --- */
+/* --- NAVBAR & HEADER --- */
 .navbar {
     background-color: var(--white);
     box-shadow: var(--shadow-soft);
@@ -66,56 +71,55 @@ body::before {
     gap: 15px;
 }
 
+/* Brand Text Ruang Aman */
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-color);
     text-decoration: none;
+    color: var(--text-color);
     cursor: pointer;
 }
 
-.nav-logo-img {
-    height: 38px;
-    width: auto;
-    border-radius: 8px;
-    object-fit: contain;
+.brand-text {
+    display: flex;
+    flex-direction: column;
 }
 
-.avatar-img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid var(--primary-accent);
+.brand-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-color);
 }
 
+.brand-subtitle {
+    font-size: 0.72rem;
+    color: var(--primary-accent);
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* Profile & Badge Widget (Tanpa Tombol Latar) */
 .user-profile-widget {
     display: flex;
     align-items: center;
     gap: 10px;
     background: #EBF3FA;
-    padding: 6px 12px;
+    padding: 6px 14px;
     border-radius: 30px;
     border: 1px solid var(--primary-accent);
-}
-
-.btn-icon {
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    background: var(--white);
-    padding: 4px 8px;
-    border-radius: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .profile-badge {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+}
+
+.avatar-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--primary-accent);
 }
 
 .badge-info {
@@ -139,6 +143,7 @@ body::before {
     margin-top: 2px;
 }
 
+/* Navigation Links */
 .nav-links {
     display: flex;
     gap: 8px;
@@ -169,7 +174,7 @@ body::before {
     color: var(--text-color);
 }
 
-/* --- SPA TRANSITION --- */
+/* --- SPA PAGES TRANSITION --- */
 .page {
     display: none;
     padding: 30px 0;
@@ -346,6 +351,7 @@ body::before {
     color: var(--primary-accent);
 }
 
+/* Detail Artikel Read View */
 .article-detail-card h2 {
     font-size: 1.8rem;
     margin-bottom: 10px;
@@ -505,7 +511,7 @@ textarea:focus, input[type="text"]:focus {
     border-radius: 20px;
 }
 
-/* --- RESPONSIVE DESIGN --- */
+/* --- RESPONSIVE MOBILE DESIGN --- */
 @media (max-width: 768px) {
     .nav-container {
         flex-wrap: wrap;
