@@ -1,725 +1,352 @@
 /* ==========================================================================
-   RUANG AMAN — DESIGN SYSTEM & STYLES (v2.0)
-   Harmonisasi Pastel + Branding Maroon Duta Kesehatan Mental
+   1. CSS VARIABLES & BASE RESET
    ========================================================================== */
-
 :root {
-  /* Latar & Nuansa Pastel */
-  --bg-sky-top: #b8c4e8;
-  --bg-sky-mid: #d5deed;
-  --bg-cream-warm: #f5e8d8;
-  --bg-cream-soft: #fbf3e8;
+    --glass-bg: rgba(255, 255, 255, 0.72);
+    --glass-bg-hover: rgba(255, 255, 255, 0.88);
+    --glass-border: rgba(255, 255, 255, 0.75);
+    --glass-shadow: 0 16px 40px rgba(58, 63, 92, 0.12);
+    
+    --primary-text: #2c3345;
+    --secondary-text: #5a627a;
+    --accent-blue: #5d82b4;
+    --accent-soft: #eaf1f8;
+    --danger-bg: #fde8e8;
+    --danger-text: #9b2c2c;
 
-  /* Teks & Neutral UI */
-  --text-main: #2d3248;
-  --text-muted: #626880;
-  --glass-bg: rgba(255, 255, 255, 0.82);
-  --glass-border: rgba(255, 255, 255, 0.95);
-  --glass-shadow: 0 10px 30px rgba(85, 95, 130, 0.08);
-
-  /* Warna Utama & Aksen Logo Duta */
-  --primary-blue: #6c89c6;
-  --primary-hover: #5672af;
-  --accent-duta-maroon: #8b2e3b;
-  --accent-duta-soft: #fbf0f2;
-  --accent-sage: #5e8a66;
-
-  /* Typography */
-  --font-heading: 'Poppins', system-ui, -apple-system, sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --radius-bubble: 24px;
+    --radius-pill: 50px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Reset Base */
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  font-family: var(--font-body);
-  color: var(--text-main);
-  line-height: 1.6;
-  background: url('1000255441.png.jpg') no-repeat center center fixed;
-  background-size: cover;
-  min-height: 100vh;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /* Menggunakan Gambar 1 (1000255441.png.jpg) sebagai Background */
+    background: linear-gradient(rgba(240, 244, 250, 0.25), rgba(240, 244, 250, 0.25)), url('../1000255441.png.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--primary-text);
+    min-height: 100vh;
+    padding: 20px 16px 60px 16px;
+    line-height: 1.6;
 }
 
-/* Banner Darurat */
-.crisis-banner {
-  background: var(--accent-duta-maroon);
-  color: #ffffff;
-  padding: 8px 16px;
-  text-align: center;
-  font-size: 0.88rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+/* ==========================================================================
+   2. BACKGROUND FLOATING BUBBLES
+   ========================================================================== */
+.ambient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
 }
 
-.crisis-banner .btn-link {
-  color: #ffe5e8;
-  font-weight: 600;
-  text-decoration: underline;
+.bubble-decor {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(6px);
+    animation: float 18s infinite ease-in-out;
 }
 
-/* Header & Navigasi Sticky */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(251, 243, 232, 0.85);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+.bubble-1 { width: 180px; height: 180px; top: 8%; left: -40px; animation-delay: 0s; }
+.bubble-2 { width: 260px; height: 260px; bottom: 5%; right: -60px; animation-delay: -5s; }
+.bubble-3 { width: 130px; height: 130px; top: 55%; left: 10%; animation-delay: -9s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-28px) rotate(8deg); }
 }
 
-.nav-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 12px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* ==========================================================================
+   3. CONTAINER & GLASSMORPHISM LAYOUT
+   ========================================================================== */
+.app-container {
+    max-width: 768px;
+    margin: 0 auto;
 }
 
-.brand-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--text-main);
+/* Emergency Banner */
+.emergency-banner {
+    background: var(--danger-bg);
+    color: var(--danger-text);
+    border: 1px solid rgba(224, 122, 122, 0.3);
+    border-radius: var(--radius-pill);
+    padding: 10px 20px;
+    font-size: 0.875rem;
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 500;
 }
 
-.nav-links {
-  display: flex;
-  list-style: none;
-  align-items: center;
-  gap: 20px;
+.emergency-banner a {
+    color: var(--danger-text);
+    font-weight: 700;
+    text-decoration: underline;
 }
 
-.nav-link {
-  text-decoration: none;
-  color: var(--text-muted);
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: color 0.2s;
+/* Main Glassmorphism Card */
+.glass-bubble-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-bubble);
+    box-shadow: var(--glass-shadow);
+    padding: 32px 24px;
+    margin-bottom: 24px;
+    transition: var(--transition);
 }
 
-.nav-link:hover, .nav-link.active {
-  color: var(--primary-blue);
+/* Header Section & Logo DKM (1000255469.png.jpg) */
+.profile-header {
+    text-align: center;
+    margin-bottom: 28px;
 }
 
-.btn-emergency {
-  background: var(--accent-duta-maroon);
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-size: 0.88rem;
-  font-weight: 600;
-  transition: transform 0.2s, background 0.2s;
+.avatar-badge {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    border: 3px solid #ffffff;
+    overflow: hidden;
 }
 
-.btn-emergency:hover {
-  background: #73232f;
-  transform: translateY(-1px);
+.avatar-badge .logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* Layout Container & Glassmorphism Panel */
-.section-container {
-  max-width: 1000px;
-  margin: 60px auto;
-  padding: 0 20px;
+.profile-header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.75rem;
+    color: var(--primary-text);
+    letter-spacing: -0.02em;
 }
 
-.glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  box-shadow: var(--glass-shadow);
-  padding: 32px;
+.profile-header .subtitle {
+    font-size: 0.925rem;
+    color: var(--secondary-text);
+    margin-top: 4px;
 }
 
-/* Hero Section */
-.hero-section {
-  max-width: 850px;
-  margin: 40px auto 20px;
-  padding: 0 20px;
-  text-align: center;
+/* Category Filter Pills Navigation */
+.filter-nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+    scrollbar-width: none;
 }
 
-.ambassador-badge-mini {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--accent-duta-soft);
-  color: var(--accent-duta-maroon);
-  padding: 6px 14px;
-  border-radius: 30px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  margin-bottom: 16px;
-  border: 1px solid rgba(139, 46, 59, 0.2);
+.filter-nav::-webkit-scrollbar {
+    display: none;
 }
 
-.badge-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--accent-duta-maroon);
-  border-radius: 50%;
+.pill-btn {
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-pill);
+    padding: 10px 18px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--secondary-text);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition);
 }
 
-.hero-title {
-  font-family: var(--font-heading);
-  font-size: 2.8rem;
-  line-height: 1.25;
-  margin-bottom: 16px;
+.pill-btn:hover, 
+.pill-btn.active {
+    background: var(--accent-blue);
+    color: #ffffff;
+    border-color: var(--accent-blue);
+    box-shadow: 0 4px 12px rgba(93, 130, 180, 0.3);
 }
 
-.highlight-text {
-  color: var(--primary-blue);
+/* ==========================================================================
+   4. ARTICLE GRID & CARD ITEMS
+   ========================================================================== */
+.article-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-.hero-subtitle {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  max-width: 650px;
-  margin: 0 auto 28px;
+.article-bubble-item {
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 18px;
+    padding: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.hero-cta-group {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+.article-bubble-item:hover {
+    background: var(--glass-bg-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Tombol Standard */
-.btn-primary {
-  background: var(--primary-blue);
-  color: #fff;
-  padding: 12px 28px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.2s;
-  box-shadow: 0 4px 15px rgba(108, 137, 198, 0.3);
+.article-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--secondary-text);
 }
 
-.btn-primary:hover {
-  background: var(--primary-hover);
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--text-main);
-  padding: 12px 28px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: 600;
-  border: 1px solid var(--glass-border);
-  transition: all 0.2s;
-  cursor: pointer;
-}
-
-.btn-secondary:hover {
-  background: #ffffff;
-  transform: translateY(-2px);
-}
-
-.trust-note {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-/* Form Tulis Perasaan */
-.section-header {
-  text-align: center;
-  margin-bottom: 28px;
-}
-
-.section-header h2 {
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
-  margin-bottom: 6px;
-}
-
-.section-header p {
-  color: var(--text-muted);
-}
-
-.prompt-chips {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-  flex-wrap: wrap;
-}
-
-.chip-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
-.chip-btn {
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid var(--glass-border);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.82rem;
-  cursor: pointer;
-  color: var(--text-main);
-  transition: background 0.2s, color 0.2s;
-}
-
-.chip-btn:hover {
-  background: var(--primary-blue);
-  color: #fff;
-}
-
-textarea#storyContent {
-  width: 100%;
-  height: 160px;
-  padding: 16px;
-  border-radius: 16px;
-  border: 1px solid rgba(108, 137, 198, 0.3);
-  background: rgba(255, 255, 255, 0.95);
-  font-family: var(--font-body);
-  font-size: 0.98rem;
-  resize: vertical;
-  outline: none;
-}
-
-textarea#storyContent:focus {
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 3px rgba(108, 137, 198, 0.2);
-}
-
-.textarea-footer {
-  text-align: right;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 6px;
-}
-
-.form-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 18px 0;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.input-group label {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 4px;
-}
-
-.input-group input[type="text"] {
-  padding: 10px 16px;
-  border-radius: 20px;
-  border: 1px solid rgba(0,0,0,0.1);
-  width: 280px;
-  font-size: 0.9rem;
-  outline: none;
-}
-
-.checkbox-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.88rem;
-}
-
-.btn-submit {
-  width: 100%;
-  background: var(--primary-blue);
-  color: #fff;
-  border: none;
-  padding: 14px;
-  border-radius: 30px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btn-submit:hover {
-  background: var(--primary-hover);
-}
-
-/* Dinding Tulisan & Pojok Baca Grid */
-.wall-grid, .articles-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-.wall-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 180px;
-}
-
-.wall-text {
-  font-size: 0.95rem;
-  margin-bottom: 16px;
-  white-space: pre-line;
-}
-
-.wall-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  border-top: 1px solid rgba(0,0,0,0.05);
-  padding-top: 10px;
-}
-
-.btn-heart {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 0.9rem;
-  color: var(--accent-duta-maroon);
-}
-
-/* Filter Chips Kategori Artikel */
-.category-filter-group {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
-}
-
-.filter-chip {
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid var(--glass-border);
-  padding: 8px 18px;
-  border-radius: 25px;
-  font-size: 0.88rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.filter-chip.active, .filter-chip:hover {
-  background: var(--primary-blue);
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(108, 137, 198, 0.3);
-}
-
-/* Card Artikel */
-.article-card {
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  flex-direction: column;
-}
-
-.article-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 35px rgba(85, 95, 130, 0.12);
-}
-
-.article-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.article-category {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 700;
-  color: var(--primary-blue);
-}
-
-.read-time-tag {
-  font-size: 0.78rem;
-  color: var(--text-muted);
+.category-tag {
+    background: var(--accent-soft);
+    color: var(--accent-blue);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
 }
 
 .article-title {
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
-  margin-bottom: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    color: var(--primary-text);
+    line-height: 1.4;
 }
 
-.article-summary-list {
-  list-style: none;
-  margin: 12px 0 16px;
-  padding-left: 0;
+.article-summary {
+    font-size: 0.875rem;
+    color: var(--secondary-text);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.article-summary-list li {
-  font-size: 0.86rem;
-  color: var(--text-muted);
-  position: relative;
-  padding-left: 16px;
-  margin-bottom: 6px;
+/* ==========================================================================
+   5. READING MODAL DIALOG
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(44, 51, 69, 0.45);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 16px;
 }
 
-.article-summary-list li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: var(--primary-blue);
-  font-weight: bold;
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
 }
 
-.btn-read-more {
-  display: inline-block;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--primary-blue);
-  margin-top: auto;
+.modal-bubble-content {
+    background: #ffffff;
+    border-radius: var(--radius-bubble);
+    max-width: 680px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 32px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
 }
 
-/* Profil Duta Section */
-.duta-card {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  border-left: 6px solid var(--accent-duta-maroon);
+.modal-overlay.active .modal-bubble-content {
+    transform: translateY(0);
 }
 
-.duta-logo-frame {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(139, 46, 59, 0.15);
-  overflow: hidden;
-  padding: 8px;
-  flex-shrink: 0;
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--accent-soft);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: var(--primary-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
 }
 
-.duta-logo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.close-btn:hover {
+    background: #dce7f3;
 }
 
-.duta-tag {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--accent-duta-maroon);
-  text-transform: uppercase;
+.modal-body h2 {
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 12px;
 }
 
-.duta-quote {
-  font-style: italic;
-  font-weight: 500;
-  margin: 8px 0;
-  color: var(--text-main);
+.summary-box {
+    background: var(--accent-soft);
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 0.9rem;
 }
 
-.duta-desc {
-  font-size: 0.9rem;
-  color: var(--text-muted);
+.summary-box ul {
+    padding-left: 20px;
+    margin-top: 8px;
 }
 
-/* Pusat Bantuan */
-.help-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+.article-content p {
+    margin-bottom: 16px;
+    font-size: 0.975rem;
+    color: #333;
 }
 
-.help-card {
-  text-align: center;
-}
-
-.help-card.highlight-border {
-  border: 2px solid var(--accent-duta-maroon);
-}
-
-.help-icon {
-  font-size: 2.2rem;
-  margin-bottom: 10px;
-}
-
-.help-number {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--accent-duta-maroon);
-  margin: 6px 0;
-}
-
-.btn-help-action {
-  display: inline-block;
-  margin-top: 14px;
-  background: var(--accent-duta-maroon);
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.btn-help-action.secondary {
-  background: var(--primary-blue);
-}
-
-/* Modal Reader & Krisis Styling */
-.modal-backdrop {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(45, 50, 72, 0.55);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 20px;
-}
-
-.modal-backdrop.active {
-  display: flex;
-}
-
-.modal-container {
-  max-width: 720px;
-  width: 100%;
-  max-height: 85vh;
-  overflow-y: auto;
-  position: relative;
-  background: #ffffff;
-  padding: 36px;
-}
-
-.modal-close {
-  position: absolute;
-  top: 16px; right: 20px;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: var(--text-muted);
-}
-
-.modal-article-header {
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  padding-bottom: 16px;
-  margin-bottom: 20px;
-}
-
-.modal-article-header h2 {
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
-  margin-top: 4px;
-}
-
-.modal-read-time {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.modal-article-content h3 {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  margin: 22px 0 10px;
-  color: var(--text-main);
-}
-
-.modal-article-content p {
-  margin-bottom: 14px;
-  font-size: 0.98rem;
-  line-height: 1.68;
-}
-
-.modal-article-content ul, .modal-article-content ol {
-  margin: 10px 0 18px 24px;
-  font-size: 0.95rem;
-}
-
-.modal-article-content li {
-  margin-bottom: 6px;
-}
-
-/* Kotak Khusus "✨ Latihan 1 Menit" */
-.exercise-box {
-  background: linear-gradient(135deg, rgba(251, 240, 242, 0.9), rgba(245, 232, 216, 0.9));
-  border: 1px solid rgba(139, 46, 59, 0.2);
-  border-left: 5px solid var(--accent-duta-maroon);
-  padding: 18px 20px;
-  border-radius: 16px;
-  margin-top: 28px;
-}
-
-.exercise-box h4 {
-  font-family: var(--font-heading);
-  color: var(--accent-duta-maroon);
-  font-size: 1.05rem;
-  margin-bottom: 6px;
-}
-
-.exercise-box p {
-  margin-bottom: 0;
-  font-size: 0.92rem;
-  color: var(--text-main);
-}
-
-/* Modal Theme Krisis */
-.crisis-theme {
-  border-top: 6px solid var(--accent-duta-maroon);
-  text-align: center;
-}
-
-.crisis-modal-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.btn-emergency-modal {
-  background: var(--accent-duta-maroon);
-  color: #ffffff;
-  padding: 12px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: 700;
+.exercise-card {
+    background: linear-gradient(135deg, #eaf1f8, #f5e8d8);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 24px;
+    border-left: 4px solid var(--accent-blue);
 }
 
 /* Footer */
-.site-footer {
-  text-align: center;
-  padding: 30px;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.5);
-  margin-top: 80px;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .hero-title { font-size: 2.1rem; }
-  .duta-card { flex-direction: column; text-align: center; }
-  .nav-links { display: none; }
-  .modal-container { padding: 24px; }
+footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+    margin-top: 20px;
 }
