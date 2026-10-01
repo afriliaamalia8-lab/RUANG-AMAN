@@ -1,16 +1,11 @@
-/* ==========================================================================
-   RUANG AMAN — FULL JAVASCRIPT (script.js)
-   Berkolaborasi dengan Duta Kesehatan Mental
-   ========================================================================== */
-
-// --- DATABASE 6 ARTIKEL PSIKOEDUKASI DKM ---
+// DATA BASE 6 ARTIKEL PSIKOEDUKASI LENGKAP DKM
 const articlesData = {
     'stres-akademik': {
         title: "📄 Mengelola Stres Akademik: Berdamai dengan Tekanan Belajar",
         time: "5 Menit Baca",
         content: `
             <p><strong>1. Kenali Respon Tubuhmu Terhadap Stres Akademik</strong></p>
-            <p>Pernahkah kamu merasa jantung berdebar keras sebelum ujian atau sulit berkonsentrasi saat melihat jadwal tugas? Itu adalah tanda tubuhmu mengaktifkan sistem alarm alami saat menganggap beban belajar sebagai tekanan berat.</p>
+            <p>Pernahkah kamu merasa jantung berdebar keras sebelum ujian atau sulit berkonsentrasi saat melihat jadwal tugas? Itu adalah tanda tubuhmu mengaktifkan sistem alarm alami (fight-or-flight) saat menganggap beban belajar sebagai tekanan berat.</p>
             
             <p><strong>2. Strategi Menghadapi Beban Tugas:</strong></p>
             <ul>
@@ -128,7 +123,7 @@ function navigateTo(pageId) {
     const pages = document.querySelectorAll('.page');
     pages.forEach(page => page.classList.remove('active'));
 
-    const selectedPage = document.getElementById(pageId) || document.getElementById(`page-${pageId}`);
+    const selectedPage = document.getElementById(`page-${pageId}`);
     if (selectedPage) {
         selectedPage.classList.add('active');
     }
@@ -142,38 +137,68 @@ function navigateTo(pageId) {
     });
 
     const navLinks = document.getElementById('nav-links');
-    if (navLinks && navLinks.classList.contains('active')) {
+    if (navLinks.classList.contains('active')) {
         navLinks.classList.remove('active');
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// --- FUNGSI TAMPILAN DETAIL ARTIKEL ---
+// --- FUNGSI TAMPILAN DETAIL ARTIKEL (SUB-PAGE) ---
 function openArticle(articleKey) {
     const data = articlesData[articleKey];
     if (!data) return;
 
     const detailContainer = document.getElementById('article-detail-content');
-    if (detailContainer) {
-        detailContainer.innerHTML = `
-            <h2>${data.title}</h2>
-            <div class="meta">⏱️ Estimasi Waktu: ${data.time}</div>
-            <div class="article-body">
-                ${data.content}
-            </div>
-        `;
-    }
+    detailContainer.innerHTML = `
+        <h2>${data.title}</h2>
+        <div class="meta">⏱️ Estimasi Waktu: ${data.time}</div>
+        <div class="article-body">
+            ${data.content}
+        </div>
+    `;
 
     navigateTo('baca-detail');
 }
 
+// --- MOBILE MENU TOGGLE ---
+document.getElementById('mobile-menu').addEventListener('click', () => {
+    const navLinks = document.getElementById('nav-links');
+    navLinks.classList.toggle('active');
+});
+
+// --- UPLOAD LATAR FOTO (KUSTOM BACKGROUND) ---
+const bgUploader = document.getElementById('bg-upload');
+if (bgUploader) {
+    bgUploader.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const imageUrl = event.target.result;
+                document.body.style.backgroundImage = `url('${imageUrl}')`;
+                localStorage.setItem('customBg', imageUrl);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+// Memuat latar foto tersimpan atau gambar bawaan 1000255441.png.jpg
+window.addEventListener('DOMContentLoaded', () => {
+    const savedBg = localStorage.getItem('customBg');
+    if (savedBg) {
+        document.body.style.backgroundImage = `url('${savedBg}')`;
+    } else {
+        document.body.style.backgroundImage = "url('1000255441.png.jpg')";
+    }
+});
+
 // --- INTERAKSI CEK MOOD ---
 function setMood(mood) {
     const responseBox = document.getElementById('mood-response');
-    if (!responseBox) return;
-
     let message = "";
+
     switch(mood) {
         case 'senang':
             message = "✨ Senang mendengarnya! Bagikan energimu di Dinding Tulisan hari ini ya.";
@@ -196,96 +221,34 @@ function setMood(mood) {
     responseBox.classList.remove('hidden');
 }
 
-// --- PENYIMPANAN TULISAN KE LOCALSTORAGE (PERSISTEN) ---
-function muatTulisan() {
-    const wallList = document.getElementById('wall-list') || document.getElementById('containerDinding');
-    if (!wallList) return;
+// --- FORM SUBMIT TULIS PERASAAN ---
+document.getElementById('form-perasaan').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-    const daftarTulisan = JSON.parse(localStorage.getItem('ruangAman_tulisan')) || [];
+    const isi = document.getElementById('isi-tulisan').value;
+    const isAnonim = document.getElementById('anonim').checked;
+    const inputNama = document.getElementById('nama-penulis').value;
 
-    if (daftarTulisan.length === 0) {
-        wallList.innerHTML = `
-            <div class="card quote-card">
-                <p class="quote-text">Belum ada tulisan tersimpan. Bagikan cerita pertamamu!</p>
-            </div>`;
-        return;
-    }
+    let nama = isAnonim ? "Anonim" : (inputNama.trim() !== "" ? inputNama : "Anonim");
 
-    wallList.innerHTML = '';
-    daftarTulisan.slice().reverse().forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'card quote-card';
-        card.innerHTML = `
-            <p class="quote-text">"${escapeHtml(item.teks)}"</p>
-            <span class="quote-author">— ${escapeHtml(item.penulis)}</span>
-        `;
-        wallList.appendChild(card);
-    });
-}
+    const wallList = document.getElementById('wall-list');
+    const newQuote = document.createElement('div');
+    newQuote.className = 'card quote-card';
+    newQuote.innerHTML = `
+        <p class="quote-text">"${escapeHtml(isi)}"</p>
+        <span class="quote-author">— ${escapeHtml(nama)}</span>
+    `;
+    wallList.prepend(newQuote);
 
-// --- EVENT LISTENER & INIT ---
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Set gambar latar utama secara langsung
-    document.body.style.backgroundImage = "url('1000255441.png.jpg')";
-
-    // 2. Mobile Menu Toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu');
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', () => {
-            const navLinks = document.getElementById('nav-links');
-            if (navLinks) navLinks.classList.toggle('active');
-        });
-    }
-
-    // 3. Handling Submit Form Tulisan (Simpan ke localStorage)
-    const formPerasaan = document.getElementById('form-perasaan') || document.getElementById('formTulis');
-    if (formPerasaan) {
-        formPerasaan.addEventListener('submit', function(e) {
-            e.preventDefault(); // Mencegah refresh halaman
-
-            const inputTeks = document.getElementById('isi-tulisan') || document.getElementById('inputTeks');
-            const inputAnonim = document.getElementById('anonim') || document.getElementById('inputAnonim');
-            const inputNama = document.getElementById('nama-penulis');
-
-            const teks = inputTeks ? inputTeks.value.trim() : '';
-            const isAnonim = inputAnonim ? inputAnonim.checked : true;
-            let namaPenulis = isAnonim ? 'Anonim' : (inputNama && inputNama.value.trim() !== '' ? inputNama.value : 'Anonim');
-
-            if (!teks) {
-                alert('Silakan tuliskan perasaan Anda terlebih dahulu.');
-                return;
-            }
-
-            // Simpan ke localStorage
-            const daftarTulisan = JSON.parse(localStorage.getItem('ruangAman_tulisan')) || [];
-            daftarTulisan.push({
-                teks: teks,
-                penulis: namaPenulis
-            });
-            localStorage.setItem('ruangAman_tulisan', JSON.stringify(daftarTulisan));
-
-            // Reset Form & Tampilkan Notifikasi
-            this.reset();
-            if (inputAnonim) inputAnonim.checked = true;
-
-            const successMsg = document.getElementById('success-message') || document.getElementById('successCard');
-            if (successMsg) {
-                successMsg.classList.remove('hidden');
-            }
-
-            // Perbarui daftar dan navigasi ke Dinding
-            muatTulisan();
-            navigateTo('dinding');
-        });
-    }
-
-    // Muat data awal
-    muatTulisan();
+    this.reset();
+    document.getElementById('anonim').checked = true;
+    document.getElementById('success-message').classList.remove('hidden');
+    document.getElementById('success-message').scrollIntoView({ behavior: 'smooth' });
 });
 
-// Helper XSS Protection
+// Helper pencegahan XSS
 function escapeHtml(text) {
-    return String(text)
+    return text
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
